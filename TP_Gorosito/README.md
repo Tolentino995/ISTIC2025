@@ -83,7 +83,7 @@ let nombre = decodeURIComponent(partes[2]).toLowerCase();
 ```
 ---
 
-##📤 Métodos de respuesta (res)
+## 📤 Métodos de respuesta (res)
 
 ### 12. .writeHead(codigo, cabeceras)
 Define el código de estado HTTP y el tipo de contenido.

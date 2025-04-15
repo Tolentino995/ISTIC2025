@@ -8,6 +8,8 @@ _servidor.listen(3000, fnServidorListo);
 
 function fnGestor(_req, _res) {
     console.log("Pidieron " + _req.url);
+    let _reqUrl = _req.url;
+
     let ahora = new Date();
 
     let horas = ahora.getHours().toString().padStart(2, "0");
@@ -18,6 +20,28 @@ function fnGestor(_req, _res) {
     let mes = (ahora.getMonth() + 1).toString().padStart(2, "0");
     let anio = ahora.getFullYear();
 
+    if (_reqUrl.startsWith("/saludar/")) {
+        let partes = _reqUrl.split("/");
+        let nombre = partes[2];
+    
+        if (!nombre) {
+            _res.writeHead(400, { "Content-Type": "text/plain" });
+            _res.end("Falta el nombre a saludar.");
+            return;
+        }
+    
+        let saludo = `Hola ${nombre.charAt(0).toUpperCase() + nombre.slice(1)}, ¡bienvenida!`;
+    
+        if (partes[3] && partes[3].toLowerCase() === "json") {
+            _res.writeHead(200, { "Content-Type": "application/json" });
+            _res.end(JSON.stringify({ saludo: saludo }, null, 2));
+        } else {
+            _res.writeHead(200, { "Content-Type": "text/plain" });
+            _res.end(saludo);
+        }
+    
+        return;
+    }
     if (_req.url === "/hora") {
         let horaTexto = `La hora actual del servidor es: ${horas}:${minutos}:${segundos}`;
         _res.writeHead(200, { "Content-Type": "text/plain" });
