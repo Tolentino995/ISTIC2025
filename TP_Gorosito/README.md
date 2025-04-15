@@ -81,4 +81,31 @@ Decodificador una parte de la URL con caracter especial:
 ```js
 let nombre = decodeURIComponent(partes[2]).toLowerCase();
 ```
+---
 
+##📤 Métodos de respuesta (res)
+
+### 12. .writeHead(codigo, cabeceras)
+Define el código de estado HTTP y el tipo de contenido.
+
+```js
+respuesta.writeHead(200, { "Content-Type": "application/json" });
+```
+
+200 → OK
+"Content-Type" → Indica si es texto, HTML, JSON, etc.
+
+### 13. .end(contenido)
+Finaliza la respuesta y envía datos al cliente.
+
+```js
+respuesta.writeHead(200, { "Content-Type": "application/json" });
+```
+
+200 → OK
+"Content-Type" → Indica si es texto, HTML, JSON, etc.
+
+```js
+respuesta.end("Hola mundo");
+respuesta.end(JSON.stringify({ hora: "12:30" }));
+```
