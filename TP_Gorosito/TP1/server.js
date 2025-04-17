@@ -124,6 +124,55 @@ function fnGestor(_req, _res) {
             _res.end(respuestaTexto);
         }
     }
+    if (_reqUrl.startsWith("/cuadrado/")){
+        let partes = _reqUrl.split("/");
+        let numCuadrado = parseInt(partes[2]);
+
+        if (isNaN(numCuadrado)){
+            _res.statusCode = 400;
+            _res.end("Lo que ingreso no es un número");
+            return
+        }
+
+        const resultadoNumCuadrado = numCuadrado * numCuadrado;
+        const respuestaTexto = `El cuadrado de ${numCuadrado} es: ${resultadoNumCuadrado}`;
+
+        if (partes[3] && partes[3].toLowerCase() === "json") {
+            _res.writeHead(200, { "Content-Type": "application/json" });
+            _res.end(JSON.stringify({
+                numCuadrado : numCuadrado,
+                resultadoNumCuadrado
+            }, null, 2));
+        } else {
+            _res.writeHead(200, { "Content-Type": "text/plain" });
+            _res.end(respuestaTexto);
+        }
+    }
+    // Ejercicio 9 
+    if (_reqUrl.startsWith("/aleatorio/")) {
+        let partes = _reqUrl.split("/");
+        let max = parseInt(partes[2]);
+
+        if (isNaN(max) || max < 0){
+            _res.statusCode = 400;
+            _res.end("El número máximo no es válido");
+            return;
+        }
+
+        const numAleatorio = Math.floor(Math.random() * (max + 1));
+        const respuestaTexto =  `El número aleatorio es entre 0 y ${max} : ${numAleatorio}`;
+
+        if (partes[3] && partes[3].toLowerCase() === "json"){
+            _res.writeHead(200, { "Content-Type": "application/json" });
+            _res.end(JSON.stringify({
+                maximo: max,
+                numeroAleatorio: numAleatorio
+            }, null, 2));
+        }else{
+            _res.writeHead(200, { "Content-Type": "text/plain" });
+            _res.end(respuestaTexto);
+        }
+    }
     else {
         _res.writeHead(404, { "Content-Type": "text/plain" });
         _res.end("Recurso no encontrado: " + _req.url);

@@ -19,6 +19,22 @@ isNaN(NaN);       // true (NaN literalmente significa "Not a Number")
 isNaN(undefined); // true (no es convertible a número)
 isNaN(null);      // false (null se convierte a 0 en contextos numéricos)
 ```
+
+### 2. Math.floor()
+Redondea un número hacia abajo al entero más cercano.
+
+```js
+Math.floor(4.9);  // 4
+Math.floor(7.1);  // 7
+Math.floor(-3.8); // -4
+```
+
+### 3. Math.random()
+Devuelve un número decimal aleatorio entre 0 (inclusive) y 1 (exclusivo).
+
+```js 
+Math.random(); // Ejemplo: 0.729834...
+```
 ---
 
 ## 🛠 Herramientas y Métodos Utilizados
