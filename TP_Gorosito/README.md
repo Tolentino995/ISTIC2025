@@ -5,6 +5,22 @@ Este proyecto creo un servidor simple en Node.js, manejando peticiones HTTP y co
 
 ---
 
+## 📜 Funciones en JavaScript
+
+### 1. isNaN 
+Significa "Is Not a Number" (No es un número) es para verificar si un valor no es un 
+número válido o no puede convertirse a uno.
+
+```js
+isNaN(123);       // false (es un número válido)
+isNaN("123");     // false (puede convertirse a número: 123)
+isNaN("Hola");    // true (no es un número)
+isNaN(NaN);       // true (NaN literalmente significa "Not a Number")
+isNaN(undefined); // true (no es convertible a número)
+isNaN(null);      // false (null se convierte a 0 en contextos numéricos)
+```
+---
+
 ## 🛠 Herramientas y Métodos Utilizados
 
 ### 1. **Node.js**

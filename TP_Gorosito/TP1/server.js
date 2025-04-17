@@ -99,6 +99,31 @@ function fnGestor(_req, _res) {
         _res.writeHead(200, { "Content-Type": "application/json "});
         _res.end(JSON.stringify(jsonActual,null,2));
     }
+    if (_reqUrl.startsWith("/edad/")) {
+        let partes = _reqUrl.split("/");
+        let anioNacimiento = parseInt(partes[2]); 
+
+        if (isNaN(anioNacimiento)) {
+            _res.statusCode = 400;
+            _res.end("Año de nacimiento inválido");
+            return;
+        }
+
+        const edad = anio - anioNacimiento;
+        const respuestaTexto = `Tienes ${edad} años (naciste en ${anioNacimiento})`;
+
+        if (partes[3] && partes[3].toLowerCase() === "json") {
+            _res.writeHead(200, { "Content-Type": "application/json" });
+            _res.end(JSON.stringify({
+                anioNacimiento: anioNacimiento,
+                edad: edad,
+                anioActual: anio
+            }, null, 2)); 
+        } else {
+            _res.writeHead(200, { "Content-Type": "text/plain" });
+            _res.end(respuestaTexto);
+        }
+    }
     else {
         _res.writeHead(404, { "Content-Type": "text/plain" });
         _res.end("Recurso no encontrado: " + _req.url);
