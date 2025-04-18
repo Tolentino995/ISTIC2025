@@ -173,6 +173,47 @@ function fnGestor(_req, _res) {
             _res.end(respuestaTexto);
         }
     }
+    // Ejercicio 10
+    if (_reqUrl.startsWith("/dado")) {
+        const dado = Math.floor(Math.random() * 6) + 1;
+        const respuestaTexto = `El número del dado es: ${dado}`;
+    
+        if (_reqUrl.toLowerCase() === "/dado/json") {
+            _res.writeHead(200, { "Content-Type": "application/json" });
+            _res.end(JSON.stringify({ resultado: dado }, null, 2));
+        } else {
+            _res.writeHead(200, { "Content-Type": "text/plain" });
+            _res.end(respuestaTexto);
+        }
+    }
+    // Ejercicio 11
+    if (_reqUrl.startsWith("/sumar/")) {
+        let partes = _reqUrl.split("/");
+        let num1 = parseFloat(partes[2]);
+        let num2 = parseFloat(partes[3]);
+    
+        if (isNaN(num1) || isNaN(num2)) {
+            _res.statusCode = 400;
+            _res.end("Uno o ambos valores no son números");
+            return;
+        }
+    
+        const suma = num1 + num2;
+        const respuestaTexto = `La suma de ${num1} y ${num2} es: ${suma}`;
+    
+        if (partes[4] && partes[4].toLowerCase() === "json") {
+            _res.writeHead(200, { "Content-Type": "application/json" });
+            _res.end(JSON.stringify({
+                num1: num1,
+                num2: num2,
+                suma: suma
+            }, null, 2));
+        } else {
+            _res.writeHead(200, { "Content-Type": "text/plain" });
+            _res.end(respuestaTexto);
+        }
+    }
+    // Ejercicio 12
     else {
         _res.writeHead(404, { "Content-Type": "text/plain" });
         _res.end("Recurso no encontrado: " + _req.url);

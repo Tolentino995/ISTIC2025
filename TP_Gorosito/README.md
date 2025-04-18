@@ -104,7 +104,7 @@ let lista = elemento.join("\n");
 Verifica si una cadena comiensza con cienrto texto:
 
 ```js
-if (_pedido.startsWhith("/artista/") { ... ]
+if (_pedido.startsWhith("/artista/")) { ... }
 ```
 
 ### 11. decodeURIComponent() 
@@ -113,11 +113,34 @@ Decodificador una parte de la URL con caracter especial:
 ```js
 let nombre = decodeURIComponent(partes[2]).toLowerCase();
 ```
+
+### 12. JSON.stringify(objeto)
+Convierte un objeto o array de JavaScript a una cadena de texto en formato JSON.
+
+``` js
+const usuario = { nombre: "Romina", edad: 28 };
+const textoJSON = JSON.stringify(usuario);
+```
+
 ---
 
 ## 📤 Métodos de respuesta (res)
 
-### 12. .writeHead(codigo, cabeceras)
+### 13. res.statusCode
+Permite establecer manualmente el código de estado HTTP de la respuesta.
+
+```
+    Códigos comunes:
+
+    200 → OK
+
+    400 → Bad Request (solicitud inválida)
+
+    404 → Not Found (no encontrado)
+
+```
+
+### 14. .writeHead(codigo, cabeceras)
 Define el código de estado HTTP y el tipo de contenido.
 
 ```js
@@ -127,7 +150,7 @@ respuesta.writeHead(200, { "Content-Type": "application/json" });
 200 → OK
 "Content-Type" → Indica si es texto, HTML, JSON, etc.
 
-### 13. .end(contenido)
+### 15. .end(contenido)
 Finaliza la respuesta y envía datos al cliente.
 
 ```js
@@ -140,4 +163,24 @@ respuesta.writeHead(200, { "Content-Type": "application/json" });
 ```js
 respuesta.end("Hola mundo");
 respuesta.end(JSON.stringify({ hora: "12:30" }));
+```
+
+#### JSON
+
+```js
+JSON.stringify({ nombre: "Ana", edad: 25 }, null, 2)
+```
+{ nombre: "Ana", edad: 25 } → Es el objeto que querés convertir en texto JSON.
+
+null → Es el replacer, una función o arreglo opcional para filtrar propiedades.
+Si lo dejás como null, se incluyen todas las propiedades del objeto.
+
+2 → Es la cantidad de espacios de indentación para hacer que el JSON sea más legible.
+Si lo ponés en 0 o no lo ponés, el JSON se genera todo en una sola línea.
+
+```js
+{
+  "nombre": "Ana",
+  "edad": 25
+}
 ```
